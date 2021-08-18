@@ -1,0 +1,7 @@
+// media query mixins //
+@mixin tablet-device {
+  @media (max-width: 768px) { @content; }
+}
+@mixin mobile-device {
+  @media (max-width: 425px) { @content; }
+}
