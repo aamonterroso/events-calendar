@@ -4,7 +4,6 @@ const months = [
 ];
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const totalCalendarDays = 42;
-
 export {
   months,
   daysOfWeek,

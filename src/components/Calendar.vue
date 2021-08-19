@@ -21,21 +21,25 @@
         <h2> {{selectedMonthName}} {{currentYear}} </h2>
       </div>
     </div>
-    <div class="calendar__body">
+    <div class="calendar__ui-body">
       <CalendarUI :month="month" :year="year" />
     </div>
-    
+    <div class="calendar__events-body">
+      <Events />
+    </div>
   </div>
 </template>
 
 <script>
 import { months } from '../constants/calendarOptions';
 import CalendarUI from './CalendarUI.vue';
+import Events from './Events.vue';
 
 export default {
   name: 'Calendar',
   components: {
-    CalendarUI
+    CalendarUI,
+    Events
   },
   data() {
     return {
@@ -58,6 +62,8 @@ export default {
     this.selectedMonthName = this.currentMonthName;
     this.month = this.currentDay.getMonth();
     this.year = this.currentDay.getFullYear();
+  },
+  methods: {
   }
 }
 </script>
