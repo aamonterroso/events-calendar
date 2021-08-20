@@ -26,6 +26,7 @@
     padding-left: 0.5rem;
     font-size: 1.2rem;
     cursor: pointer;
+    overflow: hidden;
     &:hover {
       background-color: #cfe6f9;
     }
@@ -40,5 +41,9 @@
       background-color: #b388ff;
       font-weight: bold;
     }
+  }
+  &__compressed-events {
+    float: right;
+    margin-top: 1rem;
   }
 }

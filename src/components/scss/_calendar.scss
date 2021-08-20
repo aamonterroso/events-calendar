@@ -1,5 +1,6 @@
 .calendar {
   padding: 1rem 3rem;
+  height: 35rem;
   &__header {
     width: 50%;
   }
@@ -11,5 +12,13 @@
     width: 30%;
     margin-left: 2rem;
     float: left;
+  }
+  @include mobile-device {
+    &__ui-body, &__events-body {
+      float: none;
+      width: 100%;
+      margin-top: 1rem;
+      margin-left: 0;
+    }
   }
 }

@@ -1,7 +1,30 @@
 .events {
-  &__body {
-    float: left;
-    margin-left: 3rem;
+  h3 {
+    margin: 0;
+  }
+  &__field {
+    margin: 1rem 0;
+    label {
+      font-size: 1rem;
+      color: #737373;
+    }
+  }
+  &__savebtn {
+    width: 100%;
+    margin: 1rem 0;
+    font-weight: bold;
+    &--shrink {
+      width: 45%;
+      margin: 0 0.2rem;
+      @include mobile-device {
+        width: 100%;
+        margin: inherit;
+      }
+      @include tablet-device {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+    }
   }
   .md-card {
     width: 100%;

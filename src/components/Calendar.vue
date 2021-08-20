@@ -4,7 +4,7 @@
       <div class="md-layout-item">
         <md-field>
           <label for="month">Month</label>
-          <md-select v-model="selectedMonthName" name="month" id="month">
+          <md-select v-model="selectedMonthName" name="month" id="month" @input="changeMonth">
             <md-option v-for="month in monthList" :key="month" :value="month"> 
               {{month}}
             </md-option>
@@ -14,7 +14,7 @@
       <div class="md-layout-item">
         <md-field>
           <label for="year">Year</label>
-          <md-input v-model="year" type="number" id="year"></md-input>
+          <md-input v-model="year" type="number" :min="2021" id="year" @input="changeYear"></md-input>
         </md-field>
       </div>
       <div class="md-layout-item">
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="calendar__ui-body">
-      <CalendarUI :month="month" :year="year" />
+      <CalendarUI />
     </div>
     <div class="calendar__events-body">
       <Events />
@@ -34,6 +34,8 @@
 import { months } from '../constants/calendarOptions';
 import CalendarUI from './CalendarUI.vue';
 import Events from './Events.vue';
+import { mapActions, mapGetters } from 'vuex';
+import { EventBus } from '../main';
 
 export default {
   name: 'Calendar',
@@ -44,15 +46,19 @@ export default {
   data() {
     return {
       selectedMonthName: '',
+      monthList: months,
+      currentDay: new Date(),
       year: null,
       month: null,
-      monthList: months,
-      currentDay: new Date()
     }
   },
   computed: {
+    ...mapGetters([
+      'getSelectedMonth',
+      'getSelectedYear'
+    ]),
     currentMonthName() {
-      return this.monthList[this.currentDay.getMonth()-1];
+      return this.monthList[this.currentDay.getMonth()];
     },
     currentYear() {
       return this.currentDay.getFullYear();
@@ -60,14 +66,32 @@ export default {
   },
   created() {
     this.selectedMonthName = this.currentMonthName;
-    this.month = this.currentDay.getMonth();
-    this.year = this.currentDay.getFullYear();
+    this.selectMonth(this.currentDay.getMonth());
+    this.selectYear(this.year = this.currentDay.getFullYear());
   },
   methods: {
+    ...mapActions([
+      'selectYear',
+      'selectMonth'
+    ]),
+    changeYear(year){
+      if(year.length === 4 && year >= new Date().getFullYear()){
+        this.selectYear(year);
+        EventBus.$emit('rebuildCalendar', true);
+      } else {
+        this.year = this.getSelectedYear;
+      }
+    },
+    changeMonth(month){
+      this.selectMonth(months.indexOf(month));
+      EventBus.$emit('rebuildCalendar', true);
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  @import './scss/_global.scss';
+  @import './scss/_utils.scss';
   @import './scss/_calendar.scss';
 </style>
